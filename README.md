@@ -1,8 +1,8 @@
-## followed-content
+# followed-content
 
 This is where you include your WebPart documentation.
 
-### Building the code
+## Building the code
 
 ```bash
 git clone the repo
@@ -17,7 +17,7 @@ This package produces the following:
 * dist/* - the bundled script, along with other resources
 * deploy/* - all resources which should be uploaded to a CDN.
 
-### Build options
+## Build options
 
 gulp clean - TODO
 gulp test - TODO
