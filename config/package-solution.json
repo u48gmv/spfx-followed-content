@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "followed-content-client-side-solution",
+    "id": "c8e43e65-d221-43fb-8260-2e30bc031d83",
+    "version": "1.0.0.0"
+  },
+  "paths": {
+    "zippedPackage": "solution/followed-content.sppkg"
+  }
+}

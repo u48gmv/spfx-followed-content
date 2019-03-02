@@ -1,0 +1,13 @@
+{
+  "entries": [
+    {
+      "entry": "./lib/webparts/followedContent/FollowedContentWebPart.js",
+      "manifest": "./src/webparts/followedContent/FollowedContentWebPart.manifest.json",
+      "outputPath": "./dist/followed-content-web-part.js"
+    }
+  ],
+  "externals": {},
+  "localizedResources": {
+    "FollowedContentWebPartStrings": "webparts/followedContent/loc/{locale}.js"
+  }
+}
