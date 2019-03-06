@@ -20,7 +20,7 @@
     "description": { "default": "Shows the content a current user is following" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "FollowedContent"
+      "title": "FollowedContent"
     }
   }]
 }

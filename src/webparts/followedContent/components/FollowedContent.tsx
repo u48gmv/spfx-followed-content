@@ -12,6 +12,8 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import {default as sampleDataFollow} from './sampleFollows';
 
+import { PivotItem, Pivot } from 'office-ui-fabric-react/lib/Pivot';
+
 export default class FollowedContent extends React.Component<IFollowedContentProps, IFollowedContentState> {
 
   constructor(props) {
@@ -65,7 +67,6 @@ export default class FollowedContent extends React.Component<IFollowedContentPro
 
   public render(): React.ReactElement<IFollowedContentProps> {
 
-    const followCount = this.props.followData.d.Followed.results.length;
     const catContent = this._categoriseContent(this.props.followData.d.Followed.results);
     const usersList = <List items={catContent.Users} onRenderCell={this._onRenderCell}/>;
     const documentsList = <List items={catContent.Documents} onRenderCell={this._onRenderCell}/>;
@@ -74,15 +75,21 @@ export default class FollowedContent extends React.Component<IFollowedContentPro
 
     return (
       <Fabric>
-        <div>You are following {followCount} element{followCount > 1 ? 's' : ''}</div>
-        <div>Your are following theese users:</div>
-        {usersList}
-        <div>Your are following theese documents:</div>
-        {documentsList}
-        <div>Your are following theese sites:</div>
-        {sitesList}
-        <div>Your are following theese tags:</div>
-        {tagsList}
+        <h2>{this.props.title}</h2>
+        <Pivot>
+          <PivotItem linkText="Personen" itemCount={catContent.Users.length} itemIcon="ContactInfo">
+            {usersList}
+          </PivotItem>
+          <PivotItem linkText="Dokumente" itemCount={catContent.Documents.length} itemIcon="Document">
+            {documentsList}
+          </PivotItem>
+          <PivotItem linkText="Seiten" itemCount={catContent.Sites.length} itemIcon="Globe">
+            {sitesList}
+          </PivotItem>
+          <PivotItem linkText="Tags" itemCount={catContent.Tags.length} itemIcon="Tag">
+            {tagsList}
+          </PivotItem>
+        </Pivot>
       </Fabric>
     );
   }

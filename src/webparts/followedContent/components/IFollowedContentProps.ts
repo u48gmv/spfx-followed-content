@@ -1,4 +1,4 @@
 export interface IFollowedContentProps {
-  description: string;
+  title: string;
   followData: any;
 }

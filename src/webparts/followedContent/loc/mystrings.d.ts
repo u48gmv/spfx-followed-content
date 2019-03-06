@@ -1,7 +1,7 @@
 declare interface IFollowedContentWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
-  DescriptionFieldLabel: string;
+  TitleFieldLabel: string;
 }
 
 declare module 'FollowedContentWebPartStrings' {

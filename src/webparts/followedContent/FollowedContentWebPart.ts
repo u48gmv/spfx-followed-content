@@ -14,7 +14,7 @@ import { IFollowedContentProps } from './components/IFollowedContentProps';
 import {default as sampleDataFollow} from './components/sampleFollows';
 
 export interface IFollowedContentWebPartProps {
-  description: string;
+  title: string;
 }
 
 export default class FollowedContentWebPart extends BaseClientSideWebPart<IFollowedContentWebPartProps> {
@@ -23,7 +23,7 @@ export default class FollowedContentWebPart extends BaseClientSideWebPart<IFollo
     const element: React.ReactElement<IFollowedContentProps > = React.createElement(
       FollowedContent,
       {
-        description: this.properties.description,
+        title: this.properties.title,
         followData: sampleDataFollow
       }
     );
@@ -51,8 +51,8 @@ export default class FollowedContentWebPart extends BaseClientSideWebPart<IFollo
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('title', {
+                  label: strings.TitleFieldLabel
                 })
               ]
             }
