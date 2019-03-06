@@ -8,61 +8,81 @@ import { List } from 'office-ui-fabric-react/lib/List';
 
 import '../../../../node_modules/office-ui-fabric-core/dist/css/fabric.min.css';
 import styles from './FollowedContent.module.scss';
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import {default as sampleDataFollow} from './sampleFollows';
 
 export default class FollowedContent extends React.Component<IFollowedContentProps, IFollowedContentState> {
 
-  private followedStuff = sampleDataFollow;
-
   constructor(props) {
     super(props);
-    this.state = {
-      t1:'wusa'
-    }
-  }
-
-  private _testingFunc = () => {
-    this.setState({t1:this.state.t1+'a'});
-    console.log(this.followedStuff);
+    this.state = {}
   }
 
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
-
     return (
-      <div>
-        <div>
-          <div>
-            <span>Item name: {item.Name} Item uri: {item.Uri}</span>
-          </div>
-        </div>
-      </div>
+      <a href={item.Uri}><Icon iconName={item.IconName}></Icon> {item.Name}</a>
     );
   }
 
+  private _categoriseContent = (items: any) =>{
+    let catItems = {Users: [], Documents: [], Sites: [], Tags: []};
+
+    items.forEach(element => {
+
+      let arrayToPush = [];
+      let iconName = "FavoriteStar";
+
+      switch (element.ActorType) {
+        case 0:
+          arrayToPush = catItems.Users;
+          iconName="ContactInfo";
+        break;
+
+        case 1:
+          arrayToPush = catItems.Documents;
+          iconName="Document";
+        break;
+
+        case 2:
+          arrayToPush = catItems.Sites;
+          iconName="Globe";
+        break;
+
+        case 3:
+          arrayToPush = catItems.Tags;
+          iconName="Tag";
+        break;
+      }
+
+      arrayToPush.push({Name: element.Name, Uri: element.Uri, IconName: iconName});
+
+    });
+
+
+    return catItems;
+  }
+
   public render(): React.ReactElement<IFollowedContentProps> {
-    const followCount = this.followedStuff.d.Followed.results.length;
+
+    const followCount = this.props.followData.d.Followed.results.length;
+    const catContent = this._categoriseContent(this.props.followData.d.Followed.results);
+    const usersList = <List items={catContent.Users} onRenderCell={this._onRenderCell}/>;
+    const documentsList = <List items={catContent.Documents} onRenderCell={this._onRenderCell}/>;
+    const sitesList = <List items={catContent.Sites} onRenderCell={this._onRenderCell}/>;
+    const tagsList = <List items={catContent.Tags} onRenderCell={this._onRenderCell}/>;
+
     return (
       <Fabric>
-        <div className={ styles.followedContent }>
-          <div className={ styles.container }>
-            <div className={ styles.row }>
-              <div className={ styles.column }>
-                <span className={ styles.title }>Welcome to SharePoint!</span>
-                <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-                <p className={ styles.description }>{escape(this.props.description)}</p>
-                <div className={ styles.button } onClick={this._testingFunc}>
-                  <span className={ styles.label }>Learn more</span>
-                  <div>You are following {followCount} element{followCount > 1 ? 's' : ''}</div>
-                  <List
-                    items={this.followedStuff.d.Followed.results}
-                    onRenderCell={this._onRenderCell}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div>You are following {followCount} element{followCount > 1 ? 's' : ''}</div>
+        <div>Your are following theese users:</div>
+        {usersList}
+        <div>Your are following theese documents:</div>
+        {documentsList}
+        <div>Your are following theese sites:</div>
+        {sitesList}
+        <div>Your are following theese tags:</div>
+        {tagsList}
       </Fabric>
     );
   }

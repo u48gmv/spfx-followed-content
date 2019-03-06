@@ -11,6 +11,8 @@ import * as strings from 'FollowedContentWebPartStrings';
 import FollowedContent from './components/FollowedContent';
 import { IFollowedContentProps } from './components/IFollowedContentProps';
 
+import {default as sampleDataFollow} from './components/sampleFollows';
+
 export interface IFollowedContentWebPartProps {
   description: string;
 }
@@ -21,7 +23,8 @@ export default class FollowedContentWebPart extends BaseClientSideWebPart<IFollo
     const element: React.ReactElement<IFollowedContentProps > = React.createElement(
       FollowedContent,
       {
-        description: this.properties.description
+        description: this.properties.description,
+        followData: sampleDataFollow
       }
     );
 
