@@ -1,4 +1,218 @@
-export default {"d":{"Followed":{"results":[
+/**
+ * Actor type values:
+ * 0 = A user
+ * 1 = A document
+ * 2 = A site
+ * 3 = A tag
+ *
+ * Execute the following REST-Call in order to get all followed content of the current user:
+ * http://<site>/_api/social.following/my/followed(types=15)
+ */
+
+export default
+{
+  "d": {
+      "Followed": {
+          "__metadata": {
+              "type": "Collection(SP.Social.SocialActor)"
+          },
+          "results": [
+              {
+                  "AccountName": "dev-gmv\\bobafett",
+                  "ActorType": 0,
+                  "CanFollow": true,
+                  "ContentUri": null,
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "Boba Fett",
+                  "PersonalSiteUri": "http://spvm:80/my/Person.aspx?accountname=dev%2Dgmv%5Cbobafett",
+                  "Status": 9,
+                  "StatusText": "",
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/my/Person.aspx?accountname=dev%2Dgmv%5Cbobafett"
+              },
+              {
+                  "AccountName": "dev-gmv\\darthvader",
+                  "ActorType": 0,
+                  "CanFollow": true,
+                  "ContentUri": null,
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "Darth Vader",
+                  "PersonalSiteUri": "http://spvm:80/my/Person.aspx?accountname=dev%2Dgmv%5Cdarthvader",
+                  "Status": 9,
+                  "StatusText": "",
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/my/Person.aspx?accountname=dev%2Dgmv%5Cdarthvader"
+              },
+              {
+                  "AccountName": null,
+                  "ActorType": 2,
+                  "CanFollow": false,
+                  "ContentUri": "http://spvm:80/my/personal/u48gmv/Blog",
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "8.8c940df2d32744d4a674b0d808c7850e.0d73f70667024bf38b0721ac67f92b4a.8c940df2d32744d4a674b0d808c7850e.0c37852b34d0418e91c62ac25af4be5b",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "Blog",
+                  "PersonalSiteUri": null,
+                  "Status": 0,
+                  "StatusText": null,
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/my/personal/u48gmv/Blog"
+              },
+              {
+                  "AccountName": null,
+                  "ActorType": 2,
+                  "CanFollow": false,
+                  "ContentUri": "http://spvm:80/sites/ts01",
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "8.df6a9cb2c2fb4fd38e6cb6236955926c.2236c2a6d8f448d09e8f52ba3b92a3ab.df6a9cb2c2fb4fd38e6cb6236955926c.0c37852b34d0418e91c62ac25af4be5b",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "Test Site 01",
+                  "PersonalSiteUri": null,
+                  "Status": 0,
+                  "StatusText": null,
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/sites/ts01"
+              },
+              {
+                  "AccountName": null,
+                  "ActorType": 1,
+                  "CanFollow": false,
+                  "ContentUri": "http://spvm:80/sites/ts01/Shared%20Documents/Word-Demo-01.docx",
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "2.df6a9cb2c2fb4fd38e6cb6236955926c.2236c2a6d8f448d09e8f52ba3b92a3ab.8c36b8fdf8c0495e99876f9762471715.0c37852b34d0418e91c62ac25af4be5b",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "Word-Demo-01.docx",
+                  "PersonalSiteUri": null,
+                  "Status": 0,
+                  "StatusText": null,
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/sites/ts01/Shared%20Documents/Word-Demo-01.docx"
+              },
+              {
+                  "AccountName": null,
+                  "ActorType": 1,
+                  "CanFollow": false,
+                  "ContentUri": "http://spvm:80/sites/ts01/Shared%20Documents/PDF-Demo-01.pdf",
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "2.df6a9cb2c2fb4fd38e6cb6236955926c.2236c2a6d8f448d09e8f52ba3b92a3ab.4eb4bcbbc5e74108bd716fd02e3ec82d.0c37852b34d0418e91c62ac25af4be5b",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "PDF-Demo-01.pdf",
+                  "PersonalSiteUri": null,
+                  "Status": 0,
+                  "StatusText": null,
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/sites/ts01/Shared%20Documents/PDF-Demo-01.pdf"
+              },
+              {
+                  "AccountName": null,
+                  "ActorType": 1,
+                  "CanFollow": false,
+                  "ContentUri": "http://spvm:80/sites/ts01/Shared%20Documents/Excel-Demo-01.xlsx",
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "2.df6a9cb2c2fb4fd38e6cb6236955926c.2236c2a6d8f448d09e8f52ba3b92a3ab.e46f89544914443081fc8264b372f17c.0c37852b34d0418e91c62ac25af4be5b",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "Excel-Demo-01.xlsx",
+                  "PersonalSiteUri": null,
+                  "Status": 0,
+                  "StatusText": null,
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/sites/ts01/Shared%20Documents/Excel-Demo-01.xlsx"
+              },
+              {
+                  "AccountName": null,
+                  "ActorType": 2,
+                  "CanFollow": false,
+                  "ContentUri": "http://spvm:80/sites/ts02",
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "8.ed8580e816d941a9ab22993ffc5efe14.bfc3d0ee227c468882e818648647e3dc.ed8580e816d941a9ab22993ffc5efe14.0c37852b34d0418e91c62ac25af4be5b",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "Test Site 02",
+                  "PersonalSiteUri": null,
+                  "Status": 0,
+                  "StatusText": null,
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/sites/ts02"
+              },
+              {
+                  "AccountName": null,
+                  "ActorType": 1,
+                  "CanFollow": false,
+                  "ContentUri": "http://spvm:80/sites/ts02/Shared%20Documents/PDF-Demo-04.pdf",
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "2.ed8580e816d941a9ab22993ffc5efe14.bfc3d0ee227c468882e818648647e3dc.4620f1ccac1043d2b84640ea9984314e.0c37852b34d0418e91c62ac25af4be5b",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "PDF-Demo-04.pdf",
+                  "PersonalSiteUri": null,
+                  "Status": 0,
+                  "StatusText": null,
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/sites/ts02/Shared%20Documents/PDF-Demo-04.pdf"
+              },
+              {
+                  "AccountName": null,
+                  "ActorType": 2,
+                  "CanFollow": false,
+                  "ContentUri": "http://spvm:80/sites/ts03",
+                  "EmailAddress": null,
+                  "FollowedContentUri": null,
+                  "Id": "8.403a7718a27b48728f628fe19029ffc6.a5c8b39329aa46d89cde08b3b3290ec1.403a7718a27b48728f628fe19029ffc6.0c37852b34d0418e91c62ac25af4be5b",
+                  "ImageUri": null,
+                  "IsFollowed": true,
+                  "LibraryUri": null,
+                  "Name": "Test Site 03",
+                  "PersonalSiteUri": null,
+                  "Status": 0,
+                  "StatusText": null,
+                  "TagGuid": "00000000-0000-0000-0000-000000000000",
+                  "Title": null,
+                  "Uri": "http://spvm:80/sites/ts03"
+              }
+          ]
+      }
+  }
+}
+
+/* {"d":{"Followed":{"results":[
   {"__metadata":{"type":"SP.Social.SocialActor"},
   "AccountName":null,
   "ActorType":1,
@@ -54,3 +268,4 @@ export default {"d":{"Followed":{"results":[
   "Title":null,
   "Uri":"https://somecompany-my.sharepoint.com:443/_layouts/15/HashTagProfile.aspx?TermID=19a4a484-c1dc-4bc5-8c93-bb96245ce928"}
 ]}}}
+*/
