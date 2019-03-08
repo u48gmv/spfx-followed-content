@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
-import { Version } from '@microsoft/sp-core-library';
+import { Version,
+  Environment,
+  EnvironmentType } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
@@ -13,18 +15,31 @@ import { IFollowedContentProps } from './components/IFollowedContentProps';
 
 import {default as sampleDataFollow} from './components/sampleFollows';
 
+import {
+  SPHttpClient,
+  SPHttpClientResponse   
+ } from '@microsoft/sp-http';
+
 export interface IFollowedContentWebPartProps {
   title: string;
 }
 
+
+
 export default class FollowedContentWebPart extends BaseClientSideWebPart<IFollowedContentWebPartProps> {
 
   public render(): void {
+    if (Environment.type == EnvironmentType.SharePoint || Environment.type == EnvironmentType.ClassicSharePoint){
+      const out = this._getListData();
+    }
+    
+    const ctx = this.context.pageContext;
     const element: React.ReactElement<IFollowedContentProps > = React.createElement(
       FollowedContent,
       {
         title: this.properties.title,
-        followData: sampleDataFollow
+        followData: sampleDataFollow,
+        context: ctx
       }
     );
 
@@ -61,4 +76,15 @@ export default class FollowedContentWebPart extends BaseClientSideWebPart<IFollo
       ]
     };
   }
+
+  private _getListData(): Promise<any> {
+    const getFollowedContent :string = '/_api/social.following/my/followed(types=15)';
+    const baseUrl :string = this.context.pageContext.web.absoluteUrl;
+    return this.context.spHttpClient.get(baseUrl+getFollowedContent, SPHttpClient.configurations.v1)
+      .then((response: SPHttpClientResponse) => {
+        const out = response.json();
+        console.log('Retrieve some data => '+out);
+        return out;
+      });
+   }  
 }

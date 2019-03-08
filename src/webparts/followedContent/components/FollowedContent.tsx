@@ -76,6 +76,7 @@ export default class FollowedContent extends React.Component<IFollowedContentPro
     return (
       <Fabric>
         <h2>{this.props.title}</h2>
+        <h3>Loading from <i>{escape(this.props.context.web.title)}</i></h3>
         <Pivot>
           <PivotItem linkText="Personen" itemCount={catContent.Users.length} itemIcon="ContactInfo">
             {usersList}
