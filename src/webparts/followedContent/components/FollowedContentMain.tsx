@@ -116,11 +116,12 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
               const errorCode:string = errorObj.error.code;
               const errorMessage:string = errorObj.error.message;
               const errorMsg = <div>
-                <div>Es liegt ein Fehler vor. Eventuell folgen Sie noch keinen Inhalten.</div>
+                <div>Es liegt ein Fehler vor. Eventuell wurde Deine persönliche Seite noch nicht erstellt.</div>
+                <Link href="http://spvm/my/">Besuche deine persönliche Seite, um sie zu erstellen.</Link>
+                <div>Sollte der Fehler weiterhin bestehen, melde Dich bei Deinem <Link href="mailto:test@example.com">UHD</Link></div>
                 <div>Genaue Fehlermeldung:</div>
                 <div>{errorCode}</div>
-                <div>{errorMessage}</div>
-                <Link href="http://spvm/my">Besuche deine persönliche Seite.</Link>
+                <div>{errorMessage}</div>                
                 </div>;
               this.setState({isLoading:false, dataToShow:{}, errorMessage:errorMsg});
             }
