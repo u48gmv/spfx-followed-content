@@ -6,6 +6,13 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { Link } from 'office-ui-fabric-react/lib/Link';
+import {
+  DocumentCard,
+  DocumentCardPreview,
+  DocumentCardTitle,
+  IDocumentCardPreviewProps,
+  DocumentCardType
+} from 'office-ui-fabric-react/lib/DocumentCard';
 
 import '../../../../node_modules/office-ui-fabric-core/dist/css/fabric.min.css';
 import styles from './FollowedContentMain.module.scss';
@@ -20,7 +27,7 @@ import {
 
 import {
   SPHttpClient,
-  SPHttpClientResponse   
+  SPHttpClientResponse
  } from '@microsoft/sp-http';
 
 import {
@@ -33,7 +40,11 @@ import {IDataToShow} from "./IDataToShow";
 
 import ShowError from './ShowError/ShowError';
 
- 
+import { ImageFit } from 'office-ui-fabric-react/lib/Image';
+
+import AppCard from './AppCard/AppCard';
+
+
 export default class FollowedContentMain extends React.Component<IFollowedContentMainProps, IFollowedContentMainState> {
 
   constructor(props) {
@@ -51,8 +62,14 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
   }
 
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
+    // <a href={item.Uri}><Icon iconName={item.IconName}></Icon> {item.Name}</a>
     return (
-      <a href={item.Uri}><Icon iconName={item.IconName}></Icon> {item.Name}</a>
+      <AppCard
+      message={item.Name}
+      imagePath={String(require('./IconSet/'+item.IconName+'.png'))}
+      title={item.Name}
+      description="Some description"
+      />
     );
   }
 
@@ -67,22 +84,22 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
       switch (element.ActorType) {
         case 0:
           arrayToPush = catItems.Users;
-          iconName="ContactInfo";
+          iconName="person-01";
         break;
 
         case 1:
           arrayToPush = catItems.Documents;
-          iconName="Document";
+          iconName="file-02";
         break;
 
         case 2:
           arrayToPush = catItems.Sites;
-          iconName="Globe";
+          iconName="web-01";
         break;
 
         case 3:
           arrayToPush = catItems.Tags;
-          iconName="Tag";
+          iconName="ta-02";
         break;
       }
 
@@ -98,7 +115,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
     const getFollowedContent :string = '/_api/social.following/my/followed(types=15)';
     const baseUrl :string = this.props.context.pageContext.web.absoluteUrl;
     this.props.context.spHttpClient.get(baseUrl+getFollowedContent, SPHttpClient.configurations.v1)
-      .then((response: SPHttpClientResponse) => {        
+      .then((response: SPHttpClientResponse) => {
         if(response.ok){
           response.json().then(
             (respJson)=>{
@@ -109,7 +126,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
               }
             }
           );
-        }else{                    
+        }else{
           response.text().then(
             (respText) => {
               const errorObj = JSON.parse(respText);
@@ -121,7 +138,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
                 <div>Sollte der Fehler weiterhin bestehen, melde Dich bei Deinem <Link href="mailto:test@example.com">UHD</Link></div>
                 <div>Genaue Fehlermeldung:</div>
                 <div>{errorCode}</div>
-                <div>{errorMessage}</div>                
+                <div>{errorMessage}</div>
                 </div>;
               this.setState({isLoading:false, dataToShow:{}, errorMessage:errorMsg});
             }
@@ -129,7 +146,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
         }
       });
    }
-   
+
   private _getDataToShow(): void{
     if (Environment.type == EnvironmentType.SharePoint || Environment.type == EnvironmentType.ClassicSharePoint){
       this._getListData();
@@ -138,16 +155,19 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
     }
   }
 
+  public componentDidMount(): void{
+    this._getDataToShow();
+  }
+
   public render(): React.ReactElement<IFollowedContentMainProps> {
 
     let spinner: JSX.Element = <span></span>;
     let pivot: JSX.Element = <span></span>;
     let showError: JSX.Element = <span></span>;
-    
+
 
     if(this.state.isLoading){
       spinner = <LoadingSpinner />;
-      this._getDataToShow();
     }else{
       if(this.state.errorMessage === null){
         const dataToShow: IDataToShow = this.state.dataToShow;
@@ -172,7 +192,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
       }else{
         showError = <ShowError message={this.state.errorMessage} />;
       }
-        
+
     }
 
     return (
@@ -181,7 +201,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
         <h3>Loading from <i>{escape(this.props.context.pageContext.web.title)}</i></h3>
         {spinner}
         {pivot}
-        {showError}        
+        {showError}
       </Fabric>
     );
   }
