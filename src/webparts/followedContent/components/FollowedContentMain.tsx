@@ -63,14 +63,25 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
 
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
     // <a href={item.Uri}><Icon iconName={item.IconName}></Icon> {item.Name}</a>
+    console.log('Item =>'+item.Name+'\nIndex => '+index);
     return (
       <AppCard
       message={item.Name}
-      imagePath={String(require('./IconSet/'+item.IconName+'.png'))}
+      imagePath={item.IconName}
       title={item.Name}
       description="Some description"
       />
     );
+  }
+
+  private _getItemCountForPage = (): number => {
+    let valsToSort = [];
+    valsToSort.push(this.state.dataToShow.Users.length);
+    valsToSort.push(this.state.dataToShow.Documents.length);
+    valsToSort.push(this.state.dataToShow.Sites.length);
+    valsToSort.push(this.state.dataToShow.Tags.length);
+    valsToSort.sort(function(a, b){return b-a});
+    return valsToSort[0];
   }
 
   private _categoriseContent = (items: any) =>{
@@ -84,22 +95,22 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
       switch (element.ActorType) {
         case 0:
           arrayToPush = catItems.Users;
-          iconName="person-01";
+          iconName="ContactInfo";
         break;
 
         case 1:
           arrayToPush = catItems.Documents;
-          iconName="file-02";
+          iconName="Document";
         break;
 
         case 2:
           arrayToPush = catItems.Sites;
-          iconName="web-01";
+          iconName="Globe";
         break;
 
         case 3:
           arrayToPush = catItems.Tags;
-          iconName="ta-02";
+          iconName="Tag";
         break;
       }
 
@@ -171,7 +182,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
     }else{
       if(this.state.errorMessage === null){
         const dataToShow: IDataToShow = this.state.dataToShow;
-        const usersList = <List items={dataToShow.Users} onRenderCell={this._onRenderCell}/>;
+        const usersList = <List getItemCountForPage={this._getItemCountForPage} items={dataToShow.Users} onRenderCell={this._onRenderCell}/>;
         const documentsList = <List items={dataToShow.Documents} onRenderCell={this._onRenderCell}/>;
         const sitesList = <List items={dataToShow.Sites} onRenderCell={this._onRenderCell}/>;
         const tagsList = <List items={dataToShow.Tags} onRenderCell={this._onRenderCell}/>;

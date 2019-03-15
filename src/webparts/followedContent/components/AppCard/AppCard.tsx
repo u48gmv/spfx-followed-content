@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import {IAppCardProps} from './IAppCardProps';
 
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
+
 import './AppCardStyles.scss';
 
 class AppCard extends React.Component<IAppCardProps,{}> {
@@ -11,7 +13,7 @@ class AppCard extends React.Component<IAppCardProps,{}> {
       }
 
       public render(){
-          return (
+/*
             <div className="app-card-card">
               <img className="app-card-img" src={this.props.imagePath} alt="Avatar" />
               <div className="app-card-container">
@@ -19,6 +21,12 @@ class AppCard extends React.Component<IAppCardProps,{}> {
                 <p>{this.props.description}</p>
               </div>
             </div>
+*/
+          return (
+          <div className="app-card-container">
+            <Icon className="app-card-ico" iconName={this.props.imagePath} />
+            <div className="app-card-overlay">{this.props.title}</div>
+          </div>
           );
       }
 
