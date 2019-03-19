@@ -12,6 +12,10 @@ class AppCard extends React.Component<IAppCardProps,{}> {
         this.state = {};
       }
 
+      private _followCardLink = () => {
+        window.location.href = this.props.link;
+      }
+
       public render(){
 /*
             <div className="app-card-card">
@@ -23,7 +27,7 @@ class AppCard extends React.Component<IAppCardProps,{}> {
             </div>
 */
           return (
-          <div className="app-card-container">
+          <div className="app-card-container" onClick={this._followCardLink}>
             <Icon className="app-card-ico" iconName={this.props.imagePath} />
             <div className="app-card-overlay">{this.props.title}</div>
           </div>

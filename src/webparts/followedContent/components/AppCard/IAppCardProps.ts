@@ -3,4 +3,5 @@ export interface IAppCardProps{
   imagePath?: string;
   title?: string;
   description?: string;
+  link?: string;
 }

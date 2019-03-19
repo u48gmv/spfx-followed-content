@@ -61,15 +61,14 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
     };
   }
 
-  private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
-    // <a href={item.Uri}><Icon iconName={item.IconName}></Icon> {item.Name}</a>
-    console.log('Item =>'+item.Name+'\nIndex => '+index);
+  private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {    
     return (
       <AppCard
       message={item.Name}
       imagePath={item.IconName}
       title={item.Name}
       description="Some description"
+      link={item.Uri}
       />
     );
   }
