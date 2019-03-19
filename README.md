@@ -24,3 +24,31 @@ gulp test - TODO
 gulp serve - TODO
 gulp bundle - TODO
 gulp package-solution - TODO
+
+## Ship Solution to App-Catalog
+
+**You need to be in the project folder in order to execute the ```gulp``` commands**
+
+1. Create an AppCatalog
+2. Provide read access to all domain users of your company
+3. Create a document library in the AppCatalog site
+4. Create a folder withing the document library to host the JavaScript files
+5. Adjust the ```config\write-manifes.json``` file in the following way:
+   
+   ```"cdnBasePath": "<Provide the url to the folder you created in step 4>"```
+
+6. Execute the following command:
+```bash
+gulp bundle --ship
+```
+
+7. The minified assets can be found under the ```temp\deploy``` directory
+8. Copy these files into the folder you created in step 4
+9. Execute the following command:
+```bash
+gulp package-solution --ship
+```
+10. This creates the updated client-side solution package in the ```sharepoint\solution``` folder
+11. Upload the solution to your AppCatalog
+
+That is it. Now install the app to your site, and add the ```Followed Content``` to any page.
