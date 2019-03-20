@@ -17,15 +17,6 @@ class AppCard extends React.Component<IAppCardProps,{}> {
       }
 
       public render(){
-/*
-            <div className="app-card-card">
-              <img className="app-card-img" src={this.props.imagePath} alt="Avatar" />
-              <div className="app-card-container">
-                <h4><b>{this.props.title}</b></h4>
-                <p>{this.props.description}</p>
-              </div>
-            </div>
-*/
           return (
           <div className="app-card-container" onClick={this._followCardLink}>
             <Icon className="app-card-ico" iconName={this.props.imagePath} />

@@ -6,17 +6,8 @@ import { escape } from '@microsoft/sp-lodash-subset';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import {
-  DocumentCard,
-  DocumentCardPreview,
-  DocumentCardTitle,
-  IDocumentCardPreviewProps,
-  DocumentCardType
-} from 'office-ui-fabric-react/lib/DocumentCard';
 
 import '../../../../node_modules/office-ui-fabric-core/dist/css/fabric.min.css';
-import styles from './FollowedContentMain.module.scss';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import {default as sampleDataFollow} from './sampleFollows';
 
@@ -39,8 +30,6 @@ import LoadingSpinner from './LoadingSpinner/LoadingSpinner';
 import {IDataToShow} from "./IDataToShow";
 
 import ShowError from './ShowError/ShowError';
-
-import { ImageFit } from 'office-ui-fabric-react/lib/Image';
 
 import AppCard from './AppCard/AppCard';
 
@@ -66,21 +55,57 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
       <AppCard
       message={item.Name}
       imagePath={item.IconName}
-      title={item.Name}
-      description="Some description"
+      title={item.Name}      
       link={item.Uri}
       />
     );
   }
 
-  private _getItemCountForPage = (): number => {
-    let valsToSort = [];
-    valsToSort.push(this.state.dataToShow.Users.length);
-    valsToSort.push(this.state.dataToShow.Documents.length);
-    valsToSort.push(this.state.dataToShow.Sites.length);
-    valsToSort.push(this.state.dataToShow.Tags.length);
-    valsToSort.sort(function(a, b){return b-a});
-    return valsToSort[0];
+  private _getIconForDocument = (fileName: string): string =>{
+    let iconName = "Document";
+    const periodIndex = fileName.lastIndexOf('.');
+    const fileExtention = fileName.substr(periodIndex+1).toLowerCase();
+
+    switch(fileExtention){
+      case 'doc':
+      case 'docx':
+        iconName = "WordDocument";
+      break;
+
+      case 'xls':
+      case 'xlsx':
+        iconName = "ExcelDocument";
+      break;
+      
+      case 'ppt':
+      case 'pptx':
+        iconName = "PowerPointDocument";
+      break;
+
+      case 'vsd':
+      case 'vsdx':
+      case 'vdx':
+        iconName = "VisioDocument";
+      break;      
+
+      case 'pdf':      
+        iconName = "PDF";
+      break;
+
+      case 'txt':      
+        iconName = "TextDocument";
+      break;
+      
+      case 'zip':      
+        iconName = "ZipFolder";
+      break;
+
+      default:
+        iconName = "Document";
+      break;
+
+    }
+    return iconName;
   }
 
   private _categoriseContent = (items: any) =>{
@@ -99,7 +124,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
 
         case 1:
           arrayToPush = catItems.Documents;
-          iconName="Document";
+          iconName = this._getIconForDocument(element.Name);
         break;
 
         case 2:
@@ -114,6 +139,19 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
       }
 
       arrayToPush.push({Name: element.Name, Uri: element.Uri, IconName: iconName});
+      /** Sorting the results alphabetically */
+      arrayToPush.sort((a,b)=>{
+        const x = a.Name.toLowerCase();
+        const y = b.Name.toLowerCase();
+        let toReturn = 0;
+        if(x < y){
+          toReturn = -1;
+        }
+        if(x > y){
+          toReturn = 1;
+        }
+        return toReturn;
+      });
 
     });
 
@@ -143,13 +181,13 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
               const errorCode:string = errorObj.error.code;
               const errorMessage:string = errorObj.error.message;
               const errorMsg = <div>
-                <div>Es liegt ein Fehler vor. Eventuell wurde Deine persönliche Seite noch nicht erstellt.</div>
-                <Link href="http://spvm/my/">Besuche deine persönliche Seite, um sie zu erstellen.</Link>
-                <div>Sollte der Fehler weiterhin bestehen, melde Dich bei Deinem <Link href="mailto:test@example.com">UHD</Link></div>
-                <div>Genaue Fehlermeldung:</div>
-                <div>{errorCode}</div>
-                <div>{errorMessage}</div>
-                </div>;
+              <div>Es liegt ein Fehler vor. Eventuell wurde Deine persönliche Seite noch nicht erstellt.</div>
+              <Link href={escape(this.props.mySiteHostUrl)}>Besuche deine persönliche Seite, um sie zu erstellen.</Link>
+              <div>Sollte der Fehler weiterhin bestehen, melde Dich bei Deinem <Link href="mailto:test@example.com">UHD</Link></div>
+              <div>Genaue Fehlermeldung:</div>
+              <div>{errorCode}</div>
+              <div>{errorMessage}</div>
+              </div>;
               this.setState({isLoading:false, dataToShow:{}, errorMessage:errorMsg});
             }
           );
@@ -166,7 +204,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
   }
 
   public componentDidMount(): void{
-    this._getDataToShow();
+    this._getDataToShow();    
   }
 
   public render(): React.ReactElement<IFollowedContentMainProps> {
@@ -181,10 +219,10 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
     }else{
       if(this.state.errorMessage === null){
         const dataToShow: IDataToShow = this.state.dataToShow;
-        const usersList = <List getItemCountForPage={this._getItemCountForPage} items={dataToShow.Users} onRenderCell={this._onRenderCell}/>;
-        const documentsList = <List items={dataToShow.Documents} onRenderCell={this._onRenderCell}/>;
-        const sitesList = <List items={dataToShow.Sites} onRenderCell={this._onRenderCell}/>;
-        const tagsList = <List items={dataToShow.Tags} onRenderCell={this._onRenderCell}/>;
+        const usersList = <List getItemCountForPage={():number=>{return dataToShow.Users.length}} items={dataToShow.Users} onRenderCell={this._onRenderCell}/>;
+        const documentsList = <List getItemCountForPage={():number=>{return dataToShow.Documents.length}} items={dataToShow.Documents} onRenderCell={this._onRenderCell}/>;
+        const sitesList = <List getItemCountForPage={():number=>{return dataToShow.Sites.length}} items={dataToShow.Sites} onRenderCell={this._onRenderCell}/>;
+        const tagsList = <List getItemCountForPage={():number=>{return dataToShow.Tags.length}} items={dataToShow.Tags} onRenderCell={this._onRenderCell}/>;
         pivot = <Pivot>
         <PivotItem linkText="Personen" itemCount={dataToShow.Users.length} itemIcon="ContactInfo">
           {usersList}
@@ -207,8 +245,7 @@ export default class FollowedContentMain extends React.Component<IFollowedConten
 
     return (
       <Fabric>
-        <h2>{this.props.title}</h2>
-        <h3>Loading from <i>{escape(this.props.context.pageContext.web.title)}</i></h3>
+        <h2>{this.props.title}</h2>        
         {spinner}
         {pivot}
         {showError}

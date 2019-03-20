@@ -1,7 +1,8 @@
 define([], function() {
   return {
-    "PropertyPaneDescription": "Description",
-    "BasicGroupName": "Group Name",
-    "TitleFieldLabel": "Titel"
+    "PropertyPaneDescription": "WebPart configuration",
+    "BasicGroupName": "Basic elements",
+    "TitleFieldLabel": "Title",
+    "MySiteHostUrlLabel": "My Site Host URL"
   }
 });

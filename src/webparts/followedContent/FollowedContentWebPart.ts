@@ -15,6 +15,7 @@ import { IFollowedContentMainProps } from './components/IFollowedContentMainProp
 
 export interface IFollowedContentWebPart {
   title: string;
+  mySiteHostUrl: string;
 }
 
 
@@ -26,7 +27,8 @@ export default class FollowedContentWebPart extends BaseClientSideWebPart<IFollo
     const element: React.ReactElement<IFollowedContentMainProps> = React.createElement(
       FollowedContentMain,
       {
-        title: this.properties.title,        
+        title: this.properties.title,
+        mySiteHostUrl: this.properties.mySiteHostUrl,        
         context: ctx
       }
     );  
@@ -55,7 +57,10 @@ export default class FollowedContentWebPart extends BaseClientSideWebPart<IFollo
               groupFields: [
                 PropertyPaneTextField('title', {
                   label: strings.TitleFieldLabel
-                })
+                }),
+                PropertyPaneTextField('mySiteHostUrl', {
+                  label: strings.MySiteHostUrlLabel
+                })                
               ]
             }
           ]

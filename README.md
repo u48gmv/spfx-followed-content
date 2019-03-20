@@ -51,4 +51,9 @@ gulp package-solution --ship
 10. This creates the updated client-side solution package in the ```sharepoint\solution``` folder
 11. Upload the solution to your AppCatalog
 
-That is it. Now install the app to your site, and add the ```Followed Content``` to any page.
+That is it. Now install the app to your site, and add the ```Followed Content``` Web Part to any page.
+
+## Post install steps
+
+1. You need to configure the ```My Site Host URL``` in the Web Part configuration.
+2. You can also provide an alternative title.
