@@ -1,7 +1,7 @@
 .app-card-container {
   position: relative;
   width: 150px;  
-  background-color: rgb(65, 105, 225);
+  background-color: rgba(160, 59, 181, 1);
   margin: 20px 0px 0px 20px;
   box-shadow: 9px 9px 5px 0px #000000;
   text-align: center;
@@ -11,12 +11,12 @@
 .app-card-ico{
   font-size: 60px;
   padding-top: 10px;
+  color: rgba(249, 235, 210, 1);
 }
 
 .app-card-overlay {
-  background: rgba(0, 0, 0, 0.5); /* Black see-through */
-  color: #f1f1f1;  
-  color: white;
+  background-color: rgba(0, 0, 0, 0.3); /* Black see-through */
+  color: rgba(249, 235, 210, 1);    
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;  
@@ -28,32 +28,11 @@
 .app-card-container:hover{
   cursor:pointer;
   box-shadow: 10px 10px 6px 1px #000000;
+  background-color: rgba(160, 59, 181, 0.8);
 }
 
 .ms-FocusZone{
   clear: both;
 }
 
-/**
-.app-card-card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 40%;
-  border-radius: 5px;
-  margin-top: 15px;
-}
 
-.app-card-card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.app-card-img {
-  border-radius: 5px 5px 0 0;
-  width: 50px;
-  height: 50px;
-}
-
-.app-card-container {
-  padding: 2px 16px;
-}
-*/
